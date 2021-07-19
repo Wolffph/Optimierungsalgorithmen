@@ -2,10 +2,10 @@ import java.util.Random;
 
 public class Rectangle {
 
-    private coordinate x1;
-    private coordinate x2;
-    private coordinate y1;
-    private coordinate y2;
+    public Coordinate x1;
+    public Coordinate x2;
+    public Coordinate y1;
+    public Coordinate y2;
     private final int length;
     private final int width;
     private boolean turned = false;
@@ -15,6 +15,8 @@ public class Rectangle {
         // If length or width is bigger than L, set value to L.
         // Assumption is allowed according to page 2 of the task file.
 
+
+        // todo: Nachfragen, ob ich diese Restriktion so anwenden kann.
         if ( length > L ){
             length = L;
         }
@@ -28,10 +30,10 @@ public class Rectangle {
 
         // Create a random starting position and init the coordinates for the object.
         Random randomGenerator = new Random();
-        x1 = new coordinate(randomGenerator.nextInt(L+1), randomGenerator.nextInt(L+1));
-        x2 = new coordinate(x1.getX()+length, x1.getY());
-        y1 = new coordinate(x1.getX(), x1.getY()+width);
-        y2 = new coordinate(x2.getX(), y1.getY());
+        x1 = new Coordinate(randomGenerator.nextInt(L+1), randomGenerator.nextInt(L+1));
+        x2 = new Coordinate(x1.getX()+length, x1.getY());
+        y1 = new Coordinate(x1.getX(), x1.getY()+width);
+        y2 = new Coordinate(x2.getX(), y1.getY());
 
     }
 
@@ -44,15 +46,15 @@ public class Rectangle {
 
         if ( !turned ){
             this.x1 = x2;
-            this.x2 = new coordinate(x1.getX()+length, x1.getY());
-            this.y1 = new coordinate(x1.getX(), x1.getY()+width);
-            this.y2 = new coordinate(x2.getX(), y1.getY());
+            this.x2 = new Coordinate(x1.getX()+length, x1.getY());
+            this.y1 = new Coordinate(x1.getX(), x1.getY()+width);
+            this.y2 = new Coordinate(x2.getX(), y1.getY());
             turned = true;
         } else{
             this.x2 = x1;
-            this.x1 = new coordinate(x2.getX()-length, x2.getY());
-            this.y1 = new coordinate(x1.getX(), x1.getY()+width);
-            this.y2 = new coordinate(x2.getX(), y1.getY());
+            this.x1 = new Coordinate(x2.getX()-length, x2.getY());
+            this.y1 = new Coordinate(x1.getX(), x1.getY()+width);
+            this.y2 = new Coordinate(x2.getX(), y1.getY());
             turned = false;
         }
 
