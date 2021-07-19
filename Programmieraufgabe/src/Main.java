@@ -25,8 +25,8 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
-        ArrayList<Rectangle> objects = init(100, 1000, 10, 100,
-                40, 100);
+        ArrayList<Rectangle> objects = init(1000, 100, 1, 100,
+                1, 100);
 
         WriteToFile writer = new WriteToFile(objects);
         writer.write();
