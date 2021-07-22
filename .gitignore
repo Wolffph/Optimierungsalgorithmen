@@ -1,5 +1,5 @@
 *.iml
 *.ipynb_checkpoints
-out/production/Programmieraufgabe
+out*
 *.idea
 *.DS_Store
