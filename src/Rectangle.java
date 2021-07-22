@@ -17,7 +17,6 @@ public class Rectangle implements Cloneable{
         // If length or width is bigger than L, set value to L.
         // Assumption is allowed according to page 2 of the task file.
 
-
         // todo: Nachfragen, ob ich diese Restriktion so anwenden kann.
         if ( length > L ){
             length = L;
@@ -98,10 +97,7 @@ public class Rectangle implements Cloneable{
 
     @Override
     public int hashCode() {
-        return (this.x1.getX() + this.x1.getY() +
-                this.x2.getX() + this.x2.getY() +
-                this.y1.getX() + this.y1.getY() +
-                this.y2.getX() + this.y2.getY());
+        return x1.hashCode() + x2.hashCode() + y1.hashCode() + y2.hashCode();
     }
 
 

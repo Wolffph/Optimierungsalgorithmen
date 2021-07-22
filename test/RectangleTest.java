@@ -20,7 +20,6 @@ class RectangleTest {
         prev.turnRectangle();
         assertNotEquals(prev, firstRect, "The rectangle has not turned!");
 
-
         // Second test: Turn the rectangle again. Now it should be in the first state.
         prev.turnRectangle();
         assertEquals(prev, firstRect, "The rectangle should be in the first position again.");
