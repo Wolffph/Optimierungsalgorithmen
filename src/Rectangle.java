@@ -1,6 +1,8 @@
+import org.w3c.dom.css.Rect;
+
 import java.util.Random;
 
-public class Rectangle {
+public class Rectangle implements Cloneable{
 
     public Coordinate x1;
     public Coordinate x2;
@@ -71,4 +73,40 @@ public class Rectangle {
         System.out.println("---------------------------------------");
     }
 
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+        
+        final Rectangle other = (Rectangle) obj;
+        
+        if(this.x1.equals(other.x1)){
+            if(this.x2.equals(other.x2)){
+                if(this.y1.equals(other.y1)){
+                    return this.y2.equals(other.y2);
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return (this.x1.getX() + this.x1.getY() +
+                this.x2.getX() + this.x2.getY() +
+                this.y1.getX() + this.y1.getY() +
+                this.y2.getX() + this.y2.getY());
+    }
+
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

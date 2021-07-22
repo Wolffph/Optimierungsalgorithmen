@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class WriteToFile {
 
     ArrayList<Integer> xCoordinates = new ArrayList<>();
-    ArrayList<Integer> yCoordinates = new ArrayList<>();;
+    ArrayList<Integer> yCoordinates = new ArrayList<>();
 
 
     public WriteToFile(ArrayList<Rectangle> objectList) {
@@ -27,6 +27,7 @@ public class WriteToFile {
         }
     }
 
+    @SuppressWarnings("SuspiciousNameCombination")
     public void write() {
         try (FileWriter fw = new FileWriter("data.csv", StandardCharsets.UTF_8);
              BufferedWriter writer = new BufferedWriter(fw)) {

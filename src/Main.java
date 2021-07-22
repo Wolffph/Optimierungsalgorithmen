@@ -24,7 +24,7 @@ public class Main {
 
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         ArrayList<Rectangle> objects = init(1000, 100, 1, 100,
                 1, 100);
 

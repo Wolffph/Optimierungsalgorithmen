@@ -7,6 +7,24 @@ public class Coordinate {
         this.y = y;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        final Coordinate other = (Coordinate) obj;
+
+        if(this.x == other.x){
+            return this.y == other.y;
+        }
+        return false;
+    }
+
     public int getX() {
         return x;
     }
