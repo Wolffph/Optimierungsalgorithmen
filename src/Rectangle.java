@@ -40,7 +40,7 @@ public class Rectangle implements Cloneable{
 
 
     /**
-     * Helper functiont which rotates the rectangle 90 degrees to the right
+     * Helper function which rotates the rectangle 90 degrees to the right
      * or inverts the rotated state if the rectangle has already been rotated.
      */
     public void turnRectangle(){
@@ -62,6 +62,11 @@ public class Rectangle implements Cloneable{
 
     }
 
+
+    /**
+     * This function gives a summary of the object. It prints all four coordinates from the present rectangle
+     * as well as its hashCode.
+     */
     public void printSummary(){
         System.out.println("Summary of rectangle with hash: " + this.hashCode());
         System.out.println("---------------------------------------");
@@ -70,6 +75,21 @@ public class Rectangle implements Cloneable{
         System.out.println("y1: " + "(" + this.y1.getX() + "," + this.y1.getY() + ")");
         System.out.println("y2: " + "(" + this.y2.getX() + "," + this.y2.getY() + ")");
         System.out.println("---------------------------------------");
+    }
+
+    /**
+     * The function calculates the volume of the rectangle.
+     */
+    public int volume(){
+        return this.length * this.width;
+    }
+
+    public int getLength() {
+        return this.length;
+    }
+
+    public int getWidth() {
+        return this.width;
     }
 
     @Override

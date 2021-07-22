@@ -26,6 +26,7 @@ class RectangleTest {
     }
 
     @Test
-    void printSummary() {
+    void volume() {
+        assertEquals(firstRect.getLength()* firstRect.getWidth(), firstRect.volume());
     }
 }
