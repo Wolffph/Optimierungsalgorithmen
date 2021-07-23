@@ -5,19 +5,16 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) throws CloneNotSupportedException {
-        Grid grid = new Grid(123);
-        grid.init(100, 20, 5, 20,
+        Grid grid = new Grid();
+        grid.init(100, 30, 5, 20,
                 10, 30);
-
-        // WriteToFile writer = new WriteToFile(grid.getObjects());
+        /*
 
         // Init list for bounding boxes
         ArrayList<Box> boxes = new ArrayList<>();
 
-
         // Get rectangles and asign inital valid positions
         ArrayList<Rectangle> rectangleList = grid.getObjects();
-
 
         while(!rectangleList.isEmpty()){
 
@@ -50,7 +47,11 @@ public class Main {
 
         }
         WriteToFile writer = new WriteToFile(movedObjects);
+         */
+
+        WriteToFile writer = new WriteToFile(grid.getObjects());
         writer.write();
+
 
         ScriptPython.execVisualization();
     }

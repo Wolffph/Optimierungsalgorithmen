@@ -1,6 +1,5 @@
-import org.w3c.dom.css.Rect;
-
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Box extends Rectangle{
 
@@ -77,14 +76,27 @@ public class Box extends Rectangle{
 
     public Box nextBox() {
         Box nextBox = new Box(this.L, this.x1);
-        nextBox.x1 = new Coordinate(nextBox.x1.getX()+L, nextBox.x1.getY());
-        x2 = new Coordinate(nextBox.x1.getX()+L, nextBox.x1.getY());
-        y1 = new Coordinate(nextBox.x1.getX(), nextBox.x1.getY()+L);
-        y2 = new Coordinate(nextBox.x2.getX(), nextBox.y1.getY());
+        int decider = (int) Math.round(Math.random());
 
+        if(decider == 1){
+            // Append the box to the right
+            nextBox.x1 = new Coordinate(nextBox.x1.getX()+L, nextBox.x1.getY());
+            nextBox.x2 = new Coordinate(nextBox.x1.getX()+L, nextBox.x1.getY());
+            nextBox.y1 = new Coordinate(nextBox.x1.getX(), nextBox.x1.getY()+L);
+            nextBox.y2 = new Coordinate(nextBox.x2.getX(), nextBox.y1.getY());
+        } else{
+            nextBox.x1 = new Coordinate(nextBox.x1.getX(), nextBox.x1.getY()+L);
+            nextBox.x2 = new Coordinate(nextBox.x1.getX()+L, nextBox.x1.getY());
+            nextBox.y1 = new Coordinate(nextBox.x1.getX(), nextBox.x1.getY()+L);
+            nextBox.y2 = new Coordinate(nextBox.x2.getX(), nextBox.y1.getY());
+        }
+
+
+        /*
         System.out.println("X and Y-Coordinate for X1: " + nextBox.x1);
         System.out.println("X and Y-Coordinate for X2: " + nextBox.x2);
         System.out.println("------");
+         */
 
         return nextBox;
     }

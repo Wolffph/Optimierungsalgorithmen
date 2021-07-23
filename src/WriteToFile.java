@@ -27,7 +27,6 @@ public class WriteToFile {
         }
     }
 
-    @SuppressWarnings("SuspiciousNameCombination")
     public void write() {
         try (FileWriter fw = new FileWriter("data.csv", StandardCharsets.UTF_8);
              BufferedWriter writer = new BufferedWriter(fw)) {
