@@ -6,9 +6,9 @@ public class Main {
 
     public static void main(String[] args) throws CloneNotSupportedException {
         Grid grid = new Grid();
-        grid.init(100, 30, 5, 20,
+        grid.init(50, 30, 5, 20,
                 10, 30);
-        /*
+
 
         // Init list for bounding boxes
         ArrayList<Box> boxes = new ArrayList<>();
@@ -39,7 +39,6 @@ public class Main {
             }
         }
 
-
         ArrayList<Rectangle> movedObjects = new ArrayList<>();
         for (Box box: boxes
              ) {
@@ -47,11 +46,13 @@ public class Main {
 
         }
         WriteToFile writer = new WriteToFile(movedObjects);
-         */
 
-        WriteToFile writer = new WriteToFile(grid.getObjects());
+
+        //WriteToFile writer = new WriteToFile(grid.getObjects());
         writer.write();
 
+
+        // todo: Box-Koordinaten in Datei schreiben und plotten.
 
         ScriptPython.execVisualization();
     }
