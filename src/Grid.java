@@ -8,6 +8,7 @@ public class Grid {
     private ArrayList<Rectangle> objects;
     private final long seed;
     private final Random rnd;
+    public int L;
 
     public Grid(long seed){
         this.seed = seed;
@@ -32,6 +33,7 @@ public class Grid {
         int length;
         int width;
         this.objects = new ArrayList<>(L);
+        this.L = L;
 
         for(int i = 0; i < quantity; i++){
             length = (int) Math.floor(rnd.nextDouble()*(upperBoundLength-lowerBoundLength+1)+lowerBoundLength);
@@ -39,7 +41,7 @@ public class Grid {
             this.objects.add(new Rectangle(L, length, width, rnd));
         }
 
-        placement();
+        placementAsGenerated();
     }
 
     public ArrayList<Rectangle> getObjects() {
@@ -50,7 +52,7 @@ public class Grid {
         this.objects = objects;
     }
 
-    public void placement() {
+    public void placementAsGenerated() {
         try{
             for (Rectangle rec:objects) {
                 for(int i = rec.x1.getX(); i <= rec.x2.getX(); i++){
@@ -71,15 +73,15 @@ public class Grid {
         }
     }
 
-    public boolean isEmpty(Rectangle rec){
+    public boolean violatesPlacementConstraint(Rectangle rec){
         for(int i = rec.x1.getX() + 1; i < rec.x2.getX(); i++){
             for(int j = rec.x1.getY() + 1; j < rec.y1.getY(); j++){
                 int value = gridSystem.get(new Coordinate(i, j));
                 if( value > 1){
-                    return false;
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
     }
 }

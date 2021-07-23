@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Rectangle implements Cloneable{
+public class Rectangle implements Cloneable, Comparable{
 
     public Coordinate x1, x2;
     public Coordinate y1, y2;
@@ -58,6 +58,20 @@ public class Rectangle implements Cloneable{
         x1 = new Coordinate(randomGenerator.nextInt(L+1), randomGenerator.nextInt(L+1));
         x2 = new Coordinate(x1.getX()+length, x1.getY());
         y1 = new Coordinate(x1.getX(), x1.getY()+width);
+        y2 = new Coordinate(x2.getX(), y1.getY());
+
+    }
+
+    /**
+     * Constructor for boxes.
+     */
+    public Rectangle(int L, Coordinate lowerLeft){
+
+        this.length = L;
+        this.width = L;
+        x1 = new Coordinate(lowerLeft.getX(), lowerLeft.getY());
+        x2 = new Coordinate(x1.getX()+L, x1.getY());
+        y1 = new Coordinate(x1.getX(), x1.getY()+L);
         y2 = new Coordinate(x2.getX(), y1.getY());
 
     }
@@ -158,5 +172,17 @@ public class Rectangle implements Cloneable{
     @Override
     protected Object clone() throws CloneNotSupportedException {
         return super.clone();
+    }
+
+    @Override
+    public int compareTo(Object o) {
+
+        if( ((Rectangle) o).x1.getX() >= this.x2.getX() ){
+            return -1;
+        } else if( ((Rectangle) o).x2.getX() <= this.x1.getX() ){
+            return -1;
+        } else{
+            return 1;
+        }
     }
 }

@@ -1,0 +1,91 @@
+import org.w3c.dom.css.Rect;
+
+import java.util.ArrayList;
+
+public class Box extends Rectangle{
+
+    public final int L;
+
+    public ArrayList<Rectangle> getContainer() {
+        return container;
+    }
+
+    public ArrayList<Coordinate> getAnchorList() {
+        return anchorList;
+    }
+
+    private ArrayList<Rectangle> container;
+    private ArrayList<Coordinate> anchorList;
+
+
+    public Box(int L, Coordinate lowerLeft) {
+        super(L, lowerLeft);
+        container = new ArrayList<>();
+        anchorList = new ArrayList<>();
+        this.L = L;
+    }
+
+    public boolean acquire(Rectangle rect) throws CloneNotSupportedException {
+        if(container.isEmpty()){
+            rect.move(this.x1);
+            container.add(rect);
+            return true;
+        } else{
+            anchorList.clear();
+            for (Rectangle ele : container) {
+                /*
+                Determination of feasible docking points for other rectangles.
+                 */
+
+                if(!anchorList.contains(ele.x2)){
+                    anchorList.add(ele.x2);
+                }
+
+                if(!anchorList.contains(ele.y1)){
+                    anchorList.add(ele.y1);
+                }
+
+                if(!anchorList.contains(ele.y2)){
+                    anchorList.add(ele.y2);
+                }
+            }
+            for (Coordinate coord : anchorList) {
+                Rectangle backup = (Rectangle) rect.clone();
+                rect.move(coord);
+                if(violatesAgainstPositionConstraint(rect)){
+                    rect = backup;
+                } else{
+                    container.add(rect);
+                    return true;
+                }
+
+            }
+            return false; // If this happens the box has to be "full". => Open a new Box
+        }
+    }
+
+    private boolean violatesAgainstPositionConstraint(Rectangle rect){
+        for (Rectangle obj : container) {
+            if(!rect.equals(obj)){
+                if(obj.compareTo(rect) > 0){
+                   return true;
+                }
+            }
+        }
+        return !((rect.x2.getX() <= this.x2.getX()) & (rect.y2.getY() <= this.y2.getY()));
+    }
+
+    public Box nextBox() {
+        Box nextBox = new Box(this.L, this.x1);
+        nextBox.x1 = new Coordinate(nextBox.x1.getX()+L, nextBox.x1.getY());
+        x2 = new Coordinate(nextBox.x1.getX()+L, nextBox.x1.getY());
+        y1 = new Coordinate(nextBox.x1.getX(), nextBox.x1.getY()+L);
+        y2 = new Coordinate(nextBox.x2.getX(), nextBox.y1.getY());
+
+        System.out.println("X and Y-Coordinate for X1: " + nextBox.x1);
+        System.out.println("X and Y-Coordinate for X2: " + nextBox.x2);
+        System.out.println("------");
+
+        return nextBox;
+    }
+}

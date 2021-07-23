@@ -1,4 +1,4 @@
-public class Coordinate {
+public class Coordinate{
 
     public int x, y;
 
@@ -52,4 +52,8 @@ public class Coordinate {
         return x+y+"appendix".hashCode();
     }
 
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }
