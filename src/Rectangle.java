@@ -4,12 +4,9 @@ import java.util.Random;
 
 public class Rectangle implements Cloneable{
 
-    public Coordinate x1;
-    public Coordinate x2;
-    public Coordinate y1;
-    public Coordinate y2;
-    private final int length;
-    private final int width;
+    public Coordinate x1, x2;
+    public Coordinate y1, y2;
+    private final int length, width;
     private boolean turned = false;
 
     public Rectangle(int L, int length, int width){

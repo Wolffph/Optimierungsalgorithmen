@@ -1,4 +1,4 @@
-import java.io.IOException;
+import gui.ScriptPython;
 import java.util.ArrayList;
 
 public class Main {
@@ -25,11 +25,14 @@ public class Main {
 
 
     public static void main(String[] args) {
-        ArrayList<Rectangle> objects = init(1000, 100, 1, 100,
+        ArrayList<Rectangle> objects = init(50, 7, 1, 100,
                 1, 100);
 
         WriteToFile writer = new WriteToFile(objects);
         writer.write();
+
+        ScriptPython.execVisualization();
+
 
     }
 }
