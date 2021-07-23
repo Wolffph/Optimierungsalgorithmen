@@ -47,12 +47,15 @@ public class Main {
         }
         WriteToFile writer = new WriteToFile(movedObjects);
 
+        // WriteToFile writer = new WriteToFile(grid.getObjects());
+        writer.write("data.csv");
 
-        //WriteToFile writer = new WriteToFile(grid.getObjects());
-        writer.write();
+        // Write bounding box data to a file
+        ArrayList<Rectangle> boxList = new ArrayList<>(boxes);
+        WriteToFile writer2 = new WriteToFile(boxList);
+        writer2.write("boxData.csv");
 
 
-        // todo: Box-Koordinaten in Datei schreiben und plotten.
 
         ScriptPython.execVisualization();
     }

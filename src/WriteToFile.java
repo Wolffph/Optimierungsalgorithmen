@@ -27,8 +27,8 @@ public class WriteToFile {
         }
     }
 
-    public void write() {
-        try (FileWriter fw = new FileWriter("data.csv", StandardCharsets.UTF_8);
+    public void write(String fileName) {
+        try (FileWriter fw = new FileWriter(fileName, StandardCharsets.UTF_8);
              BufferedWriter writer = new BufferedWriter(fw)) {
 
             actualWriting(writer, xCoordinates);
