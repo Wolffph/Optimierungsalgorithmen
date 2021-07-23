@@ -2,6 +2,7 @@ public class Coordinate {
 
     public int x, y;
 
+
     public Coordinate(int x, int y){
         this.x = x;
         this.y = y;
@@ -40,4 +41,15 @@ public class Coordinate {
     public void setY(int y) {
         this.y = y;
     }
+
+    @Override
+    public String toString() {
+        return "x: " + this.x + ", " + "y: " + this.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return x+y+"appendix".hashCode();
+    }
+
 }
