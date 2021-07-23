@@ -29,4 +29,16 @@ class RectangleTest {
     void volume() {
         assertEquals(firstRect.getLength()* firstRect.getWidth(), firstRect.volume());
     }
+
+    @Test
+    void move() throws CloneNotSupportedException {
+        Grid grid = new Grid(100);
+        grid.init(1000, 10, 100, 100,
+                100, 200);
+        Rectangle beforeMoving = (Rectangle) grid.getObjects().get(0).clone();
+        grid.getObjects().get(0).move(new Coordinate(2500, 10));
+
+        assertNotEquals(beforeMoving, grid.getObjects().get(0));
+        assertEquals(grid.getObjects().get(0).x1, new Coordinate(2500, 10));
+    }
 }

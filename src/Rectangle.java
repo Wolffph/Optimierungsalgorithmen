@@ -1,5 +1,3 @@
-import org.w3c.dom.css.Rect;
-
 import java.util.Random;
 
 public class Rectangle implements Cloneable{
@@ -37,6 +35,35 @@ public class Rectangle implements Cloneable{
 
 
     /**
+     * Constructor with seed.
+     */
+    public Rectangle(int L, int length, int width, Random randomGenerator){
+
+        // If length or width is bigger than L, set value to L.
+        // Assumption is allowed according to page 2 of the task file.
+
+        // todo: Nachfragen, ob ich diese Restriktion so anwenden kann.
+        if ( length > L ){
+            length = L;
+        }
+
+        if ( width > L ){
+            width = L;
+        }
+
+        this.length = length;
+        this.width = width;
+
+        // Create a random starting position and init the coordinates for the object.
+        x1 = new Coordinate(randomGenerator.nextInt(L+1), randomGenerator.nextInt(L+1));
+        x2 = new Coordinate(x1.getX()+length, x1.getY());
+        y1 = new Coordinate(x1.getX(), x1.getY()+width);
+        y2 = new Coordinate(x2.getX(), y1.getY());
+
+    }
+
+
+    /**
      * Helper function which rotates the rectangle 90 degrees to the right
      * or inverts the rotated state if the rectangle has already been rotated.
      */
@@ -55,8 +82,18 @@ public class Rectangle implements Cloneable{
             this.y2 = new Coordinate(x2.getX(), y1.getY());
             turned = false;
         }
+    }
 
-
+    /**
+     * Moves the current rectangle to a new position, based on the lower left corner.
+     */
+    public void move(Coordinate newPosition){
+        if(newPosition != null){
+            this.x1 = newPosition;
+            this.x2 = new Coordinate(x1.getX()+length, x1.getY());
+            this.y1 = new Coordinate(x1.getX(), x1.getY()+width);
+            this.y2 = new Coordinate(x2.getX(), y1.getY());
+        }
     }
 
 
