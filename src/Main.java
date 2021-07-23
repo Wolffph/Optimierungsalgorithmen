@@ -5,8 +5,11 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) throws CloneNotSupportedException {
+
+        long startTime = System.currentTimeMillis();
+
         Grid grid = new Grid();
-        grid.init(50, 30, 5, 20,
+        grid.init(100, 1000, 5, 20,
                 10, 30);
 
 
@@ -57,6 +60,16 @@ public class Main {
 
 
 
+        long endTime = System.currentTimeMillis();
+        System.out.println("The inital calculation took " + (endTime - startTime) + " milliseconds.");
+
+        startTime = System.currentTimeMillis();
         ScriptPython.execVisualization();
+        endTime = System.currentTimeMillis();
+        System.out.println("To draw the plot it took " + (endTime - startTime) + " milliseconds.");
+
+
+
+
     }
 }
