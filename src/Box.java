@@ -13,8 +13,8 @@ public class Box extends Rectangle{
         return anchorList;
     }
 
-    private ArrayList<Rectangle> container;
-    private ArrayList<Coordinate> anchorList;
+    private final ArrayList<Rectangle> container;
+    private final ArrayList<Coordinate> anchorList;
 
 
     public Box(int L, Coordinate lowerLeft) {

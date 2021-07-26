@@ -6,22 +6,35 @@ public class Main {
 
     public static void main(String[] args) throws CloneNotSupportedException {
 
+
+
         long startTime = System.currentTimeMillis();
+        Grid grid = new Grid();
 
-        Grid grid = new Grid(1);
-
-        grid.init(150, 50, 1, 100,
+        grid.init(150, 300, 1, 100,
                 1, 100);
 
+        long endTime = System.currentTimeMillis();
+        System.out.println("The data preparation took " + (endTime - startTime) + " milliseconds.");
+        System.out.println("There are " + grid.getObjects().size() + " retangles and we got "
+                + grid.getBoxes().size() + " bounding boxes.");
+        System.out.println("##################################################");
 
-        System.out.println("There are " + grid.getObjects().size() + " retangles.");
-        System.out.println("And we got " + grid.getBoxes().size() + " bounding boxes.");
 
-        System.out.println("Time to tidy up: ");
-        System.out.println("---------------------");
+
+        System.out.println("TIME TO TIDY UP. Move data for better plotting.");
+        startTime = System.currentTimeMillis();
+
         grid.tidyUpSingleThread();
-        // WriteToFile writer = new WriteToFile(movedObjects);
 
+        endTime = System.currentTimeMillis();
+        System.out.println("TIDY UP: DONE.");
+        System.out.println("The cleaning took " + (endTime - startTime) + " milliseconds.");
+
+
+        System.out.println("##################################################");
+        System.out.println("Proceed with writing files.");
+        startTime = System.currentTimeMillis();
         WriteToFile writer = new WriteToFile(grid.getObjects());
         writer.write("data.csv");
 
@@ -29,17 +42,21 @@ public class Main {
         ArrayList<Rectangle> boxList = new ArrayList<>(grid.getBoxes());
         WriteToFile writer2 = new WriteToFile(boxList);
         writer2.write("boxData.csv");
+        endTime = System.currentTimeMillis();
+        System.out.println("File writing: DONE.");
+        System.out.println("The writing took " + (endTime - startTime) + " milliseconds.");
 
 
 
-        long endTime = System.currentTimeMillis();
-        System.out.println("The inital calculation took " + (endTime - startTime) + " milliseconds.");
+
+
 
         startTime = System.currentTimeMillis();
         ScriptPython.execVisualization();
         endTime = System.currentTimeMillis();
+        System.out.println("##################################################");
         System.out.println("To draw the plot it took " + (endTime - startTime) + " milliseconds.");
-
+        System.out.println("##################################################");
 
 
 

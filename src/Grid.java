@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Grid {
 
@@ -152,10 +153,32 @@ public class Grid {
         }
     }
 
-    public void tidyUpMultiThread(){
+    public void tidyUpMultiThread() {
+        // todo: Seems like the overhead of spawning threads makes the method useless.
+        // todo: Method also does not work correctly. Example: Seed=1 with 100 objects.
         int levels = (int) Math.floor(Math.sqrt(boxes.size()));
         int counter = (int) Math.floor(boxes.size()/levels);
+        AtomicInteger elementNumber = new AtomicInteger();
+
+        if(counter*levels < boxes.size()){
+            counter = counter + 1;
+        }
 
 
+        for(int i = 1; i < levels + 1; i++){
+            int finalLevels = i;
+            int finalCounter = counter;
+            Thread t = new Thread(()->{
+                for(int j = 1; j<= finalCounter; j++){
+                    if(elementNumber.get() > boxes.size() - 1){
+                        break;
+                    } else{
+                        boxes.get(elementNumber.get()).move(new Coordinate(-L + j*L, -L + finalLevels*L));
+                        elementNumber.getAndIncrement();
+                    }
+                }
+            }, "Threaderick_"+levels);
+            t.start();
+        }
     }
 }
