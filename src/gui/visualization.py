@@ -33,3 +33,5 @@ for i in range(0, len(boxXValues), 4):
 # plt.show()
 
 fig.savefig("/Users/pw-home/IdeaProjects/Optimierungsalgorithmen/graph.png")
+fig.savefig('/Users/pw-home/IdeaProjects/Optimierungsalgorithmen/graph.eps', format='eps')
+# fig.savefig('/Users/pw-home/IdeaProjects/Optimierungsalgorithmen/graph.svg', format = 'svg')

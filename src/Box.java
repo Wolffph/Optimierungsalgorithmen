@@ -24,6 +24,35 @@ public class Box extends Rectangle{
         this.L = L;
     }
 
+    @Override
+    public void move(Coordinate newPosition) {
+
+        int moveLeftLowerCornerByX;
+        int moveLeftLowerCornerByY;
+
+        if(this.x1.getX() >= newPosition.getX()){
+            moveLeftLowerCornerByX = -(this.x1.getX() - newPosition.getX());
+        } else{
+            moveLeftLowerCornerByX = newPosition.getX() - this.x1.getX();
+        }
+
+        if(this.x1.getY() >= newPosition.getY()){
+            moveLeftLowerCornerByY = -(this.x1.getY() - newPosition.getY());
+        } else{
+            moveLeftLowerCornerByY = newPosition.getY() - this.x1.getY();
+        }
+
+        super.move(newPosition);
+
+        for (Rectangle rect : container) {
+            int leftLowerCornerOfRectX = rect.x1.getX();
+            int leftLowerCornerOfRectY = rect.x1.getY();
+
+            rect.move(new Coordinate(leftLowerCornerOfRectX + moveLeftLowerCornerByX,
+                    leftLowerCornerOfRectY + moveLeftLowerCornerByY));
+        }
+    }
+
     public boolean acquire(Rectangle rect) throws CloneNotSupportedException {
         if(container.isEmpty()){
             rect.move(this.x1);
@@ -92,9 +121,11 @@ public class Box extends Rectangle{
         }
 
 
+
+
         /*
         System.out.println("X and Y-Coordinate for X1: " + nextBox.x1);
-        System.out.println("X and Y-Coordinate for X2: " + nextBox.x2);
+        System.out.println("X and Y-Coordinate for Y2: " + nextBox.y2);
         System.out.println("------");
          */
 

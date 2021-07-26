@@ -8,53 +8,25 @@ public class Main {
 
         long startTime = System.currentTimeMillis();
 
-        Grid grid = new Grid();
-        grid.init(100, 1000, 5, 20,
-                10, 30);
+        Grid grid = new Grid(1);
+
+        grid.init(150, 50, 1, 100,
+                1, 100);
 
 
-        // Init list for bounding boxes
-        ArrayList<Box> boxes = new ArrayList<>();
+        System.out.println("There are " + grid.getObjects().size() + " retangles.");
+        System.out.println("And we got " + grid.getBoxes().size() + " bounding boxes.");
 
-        // Get rectangles and asign inital valid positions
-        ArrayList<Rectangle> rectangleList = grid.getObjects();
+        System.out.println("Time to tidy up: ");
+        System.out.println("---------------------");
+        grid.tidyUpSingleThread();
+        // WriteToFile writer = new WriteToFile(movedObjects);
 
-        while(!rectangleList.isEmpty()){
-
-            boolean alreadyAdded = false;
-            Rectangle actualRect = rectangleList.get(0);
-            rectangleList.remove(0);
-
-            if(boxes.isEmpty()){
-                boxes.add(new Box(grid.L, new Coordinate(0,0)));
-            } else {
-                for (Box ele : boxes) {
-                        if (ele.acquire(actualRect)) {
-                            alreadyAdded = true;
-                            break;
-                        }
-                }
-                if(!alreadyAdded) {
-                    Box nextBox = boxes.get(boxes.size() - 1).nextBox();
-                    nextBox.acquire(actualRect);
-                    boxes.add(nextBox);
-                }
-            }
-        }
-
-        ArrayList<Rectangle> movedObjects = new ArrayList<>();
-        for (Box box: boxes
-             ) {
-            movedObjects.addAll(box.getContainer());
-
-        }
-        WriteToFile writer = new WriteToFile(movedObjects);
-
-        // WriteToFile writer = new WriteToFile(grid.getObjects());
+        WriteToFile writer = new WriteToFile(grid.getObjects());
         writer.write("data.csv");
 
         // Write bounding box data to a file
-        ArrayList<Rectangle> boxList = new ArrayList<>(boxes);
+        ArrayList<Rectangle> boxList = new ArrayList<>(grid.getBoxes());
         WriteToFile writer2 = new WriteToFile(boxList);
         writer2.write("boxData.csv");
 

@@ -6,6 +6,7 @@ public class Grid {
 
     private final HashMap<Coordinate, Integer> gridSystem;
     private ArrayList<Rectangle> objects;
+    private ArrayList<Box> boxes;
     private final long seed;
     private final Random rnd;
     public int L;
@@ -35,17 +36,66 @@ public class Grid {
         this.objects = new ArrayList<>(L);
         this.L = L;
 
-        for(int i = 0; i < quantity; i++){
+        for(int i = 0; i <= quantity; i++){
             length = (int) Math.floor(rnd.nextDouble()*(upperBoundLength-lowerBoundLength+1)+lowerBoundLength);
             width = (int) Math.floor(rnd.nextDouble()*(upperBoundWidth-lowerBoundWidth+1)+lowerBoundWidth);
             this.objects.add(new Rectangle(L, length, width, rnd));
         }
 
         placementAsGenerated();
+
+
+        // Init list for bounding boxes
+        boxes = new ArrayList<>();
+
+
+        while(!objects.isEmpty()){
+
+            boolean alreadyAdded = false;
+            Rectangle actualRect = objects.get(0);
+            objects.remove(0);
+
+            if(boxes.isEmpty()){
+                boxes.add(new Box(L, new Coordinate(0,0)));
+            } else {
+                for (Box ele : boxes) {
+                    try{
+                        if (ele.acquire(actualRect)) {
+                            alreadyAdded = true;
+                            break;
+                        }
+                    } catch (CloneNotSupportedException ie){
+                        ie.printStackTrace();
+                    }
+
+                }
+                if(!alreadyAdded) {
+                    try{
+                        Box nextBox = boxes.get(boxes.size() - 1).nextBox();
+                        nextBox.acquire(actualRect);
+                        boxes.add(nextBox);
+                    } catch (CloneNotSupportedException ie){
+                        ie.printStackTrace();
+                    }
+
+                }
+            }
+        }
+
+        ArrayList<Rectangle> movedObjects = new ArrayList<>();
+        for (Box box: boxes) {
+            movedObjects.addAll(box.getContainer());
+        }
+
+        objects = movedObjects;
     }
 
     public ArrayList<Rectangle> getObjects() {
         return objects;
+    }
+
+    public ArrayList<Box> getBoxes() {
+        return boxes;
     }
 
     public void setObjects(ArrayList<Rectangle> objects) {
@@ -83,5 +133,29 @@ public class Grid {
             }
         }
         return false;
+    }
+
+    public void tidyUpSingleThread(){
+        int levels = (int) Math.floor(Math.sqrt(boxes.size()));
+        int counter = (int) Math.floor(boxes.size()/levels);
+        int elementNumber = 0;
+
+        for(int i = 1; i <= levels+1; i++){
+            for(int j = 1; j<= counter; j++){
+                if(elementNumber > boxes.size() - 1){
+                    break;
+                } else{
+                    boxes.get(elementNumber).move(new Coordinate(-L + j*L, -L + i*L));
+                    elementNumber++;
+                }
+            }
+        }
+    }
+
+    public void tidyUpMultiThread(){
+        int levels = (int) Math.floor(Math.sqrt(boxes.size()));
+        int counter = (int) Math.floor(boxes.size()/levels);
+
+
     }
 }
