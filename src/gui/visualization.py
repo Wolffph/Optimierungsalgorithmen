@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import seaborn as sns
 
 data = pd.read_csv("/Users/pw-home/IdeaProjects/Optimierungsalgorithmen/data.csv", header=None, delimiter=";")
 boxData = pd.read_csv("/Users/pw-home/IdeaProjects/Optimierungsalgorithmen/boxData.csv", header=None, delimiter=";")
@@ -10,7 +11,15 @@ yValues = np.fromstring(data.iloc[1].values.tolist()[0], dtype=int, sep=',')
 boxXValues = np.fromstring(boxData.iloc[0].values.tolist()[0], dtype=int, sep=',')
 boxYValues = np.fromstring(boxData.iloc[1].values.tolist()[0], dtype=int, sep=',')
 
+
+
+# General plot configuration
 fig = plt.figure()
+plt.gca().set_aspect('equal', adjustable='box')
+plt.axis('off')
+sns.set()
+sns.set_style("ticks", {'axes.grid' : False})
+sns.despine(top=True, right=True, left=True, bottom=True)
 
 # Plot the rectangles
 for i in range(0, len(xValues), 4):
@@ -28,6 +37,11 @@ for i in range(0, len(boxXValues), 4):
     plt.plot([boxXValues[i + 2], boxXValues[i + 3]], [boxYValues[i + 2], boxYValues[i + 3]], 'orange', linewidth=0.3)  # upper edges
     plt.plot([boxXValues[i], boxXValues[i]], [boxYValues[i], boxYValues[i + 2]], 'orange', linewidth=0.3)  # left edges
     plt.plot([boxXValues[i + 1], boxXValues[i + 1]], [boxYValues[i], boxYValues[i + 2]], 'orange', linewidth=0.3)  # right edges
+
+
+
+
+
 
 
 # plt.show()
