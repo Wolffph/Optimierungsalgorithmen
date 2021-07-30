@@ -2,7 +2,7 @@ package env;
 
 import java.util.Random;
 
-public class Rectangle implements Cloneable, Comparable{
+public class Rectangle implements Cloneable, Comparable<Rectangle>{
 
     public Coordinate x1, x2;
     public Coordinate y1, y2;
@@ -176,11 +176,11 @@ public class Rectangle implements Cloneable, Comparable{
     }
 
     @Override
-    public int compareTo(Object o) {
+    public int compareTo(Rectangle o) {
 
-        if( ((Rectangle) o).x1.getX() >= this.x2.getX() ){
+        if( o.x1.getX() >= this.x2.getX() ){
             return -1;
-        } else if( ((Rectangle) o).x2.getX() <= this.x1.getX() ){
+        } else if( o.x2.getX() <= this.x1.getX() ){
             return -1;
         } else{
             return 1;
