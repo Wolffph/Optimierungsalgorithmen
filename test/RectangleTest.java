@@ -1,3 +1,6 @@
+import env.Coordinate;
+import env.Grid;
+import env.Rectangle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,5 +1,6 @@
+package env;
+
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Box extends Rectangle{
 
@@ -88,7 +89,7 @@ public class Box extends Rectangle{
                 }
 
             }
-            return false; // If this happens the box has to be "full". => Open a new Box
+            return false; // If this happens the box has to be "full". => Open a new env.Box
         }
     }
 
@@ -124,8 +125,8 @@ public class Box extends Rectangle{
 
 
         /*
-        System.out.println("X and Y-Coordinate for X1: " + nextBox.x1);
-        System.out.println("X and Y-Coordinate for Y2: " + nextBox.y2);
+        System.out.println("X and Y-env.Coordinate for X1: " + nextBox.x1);
+        System.out.println("X and Y-env.Coordinate for Y2: " + nextBox.y2);
         System.out.println("------");
          */
 

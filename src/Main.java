@@ -1,3 +1,5 @@
+import env.Grid;
+import env.Rectangle;
 import gui.ScriptPython;
 
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ public class Main {
         long startTime = System.currentTimeMillis();
         Grid grid = new Grid();
 
-        grid.init(150, 300, 1, 100,
+        grid.init(150, 200, 1, 100,
                 1, 100);
 
         long endTime = System.currentTimeMillis();

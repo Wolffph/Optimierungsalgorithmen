@@ -1,3 +1,5 @@
+package env;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -35,6 +37,7 @@ public class Grid {
         int length;
         int width;
         this.objects = new ArrayList<>(L);
+        boxes = new ArrayList<>();
         this.L = L;
 
         for(int i = 0; i <= quantity; i++){
@@ -44,10 +47,6 @@ public class Grid {
         }
 
         placementAsGenerated();
-
-
-        // Init list for bounding boxes
-        boxes = new ArrayList<>();
 
 
         while(!objects.isEmpty()){
@@ -177,7 +176,7 @@ public class Grid {
                         elementNumber.getAndIncrement();
                     }
                 }
-            }, "Threaderick_"+levels);
+            }, "Thread_"+levels);
             t.start();
         }
     }

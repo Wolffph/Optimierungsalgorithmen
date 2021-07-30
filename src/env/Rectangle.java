@@ -1,3 +1,5 @@
+package env;
+
 import java.util.Random;
 
 public class Rectangle implements Cloneable, Comparable{
@@ -42,7 +44,6 @@ public class Rectangle implements Cloneable, Comparable{
         // If length or width is bigger than L, set value to L.
         // Assumption is allowed according to page 2 of the task file.
 
-        // todo: Nachfragen, ob ich diese Restriktion so anwenden kann.
         if ( length > L ){
             length = L;
         }
@@ -170,7 +171,7 @@ public class Rectangle implements Cloneable, Comparable{
 
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
 
