@@ -1,3 +1,4 @@
+import matplotlib as matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -17,6 +18,7 @@ boxYValues = np.fromstring(boxData.iloc[1].values.tolist()[0], dtype=int, sep=',
 
 box_linewidth = 0.3
 rect_linewidth = 0.2
+matplotlib.use('TkAgg')
 fig = plt.figure()
 plt.gca().set_aspect('equal', adjustable='box')
 plt.axis('off')

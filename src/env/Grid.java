@@ -46,9 +46,12 @@ public class Grid {
             this.objects.add(new Rectangle(L, length, width, rnd));
         }
 
-        placementAsGenerated();
+        // placementAsGenerated(); todo: Check if this is even necessary.
 
+        generateFeasibleSolution();
+    }
 
+    private void generateFeasibleSolution() {
         while(!objects.isEmpty()){
 
             boolean alreadyAdded = false;
@@ -108,11 +111,14 @@ public class Grid {
                 for(int i = rec.x1.getX(); i <= rec.x2.getX(); i++){
                     for(int j = rec.x1.getY(); j <= rec.y1.getY(); j++){
                         Coordinate blocking = new Coordinate(i, j);
-                        int actualValue;
+                        int actualValue = 0;
+
                         try{
-                           actualValue = gridSystem.get(blocking);
-                        } catch (NullPointerException ex){
-                           actualValue = 0;
+                            if (gridSystem.get(blocking) != null) {
+                                actualValue = gridSystem.get(blocking);
+                            }
+                        } catch (NullPointerException nex){
+                            nex.printStackTrace();
                         }
                         gridSystem.put(blocking, actualValue+1);
                     }

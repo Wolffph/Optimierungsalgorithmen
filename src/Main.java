@@ -13,15 +13,14 @@ public class Main {
         long startTime = System.currentTimeMillis();
         Grid grid = new Grid();
 
-        grid.init(150, 200, 1, 100,
-                1, 100);
+        grid.init(15000, 100, 1, 10000,
+                1, 10000);
 
         long endTime = System.currentTimeMillis();
         System.out.println("The data preparation took " + (endTime - startTime) + " milliseconds.");
-        System.out.println("There are " + grid.getObjects().size() + " retangles and we got "
+        System.out.println("There are " + grid.getObjects().size() + " rectangles and we got "
                 + grid.getBoxes().size() + " bounding boxes.");
         System.out.println("##################################################");
-
 
 
         System.out.println("TIME TO TIDY UP. Move data for better plotting.");
