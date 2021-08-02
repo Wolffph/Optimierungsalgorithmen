@@ -1,16 +1,17 @@
 package algorithms.greedy;
 
+import env.Box;
+import env.Coordinate;
 import env.Grid;
 import env.Rectangle;
-import org.w3c.dom.css.Rect;
+import gui.ScriptPython;
 
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.Comparator;
 import java.util.LinkedList;
 
 public class GreedyNumberOne {
 
-    private final Grid instance;
+    private Grid instance;
     private LinkedList<Rectangle> lengthSortedList;
     private LinkedList<Rectangle> widthSortedList;
 
@@ -27,19 +28,65 @@ public class GreedyNumberOne {
 
     public GreedyNumberOne(Grid instance){
         this.instance = instance;
-        // this.lengthSortedList = this.instance.getObjects();
-        // this.widthSortedList = new LinkedList<Rectangle>(this.instance.getObjects().size());
+
+        this.instance.getObjects().sort(Comparator.comparingInt(Rectangle::getLength));
+        this.lengthSortedList = new LinkedList<>(this.instance.getObjects());
+
+        this.instance.getObjects().sort(Comparator.comparingInt(Rectangle::getWidth));
+        this.widthSortedList = new LinkedList<>(this.instance.getObjects());
     }
 
-    public void solve(){
+    public void solve() {
+
+        boolean flag = false;
+        boolean lengthFlag = false;
+        Rectangle actualRect;
+        Box newBox;
+
+        while(true){
+
+            newBox = new Box(instance.L, new Coordinate(0, 0));
+            lengthFlag = false;
+
+            while((!lengthSortedList.isEmpty()) & (!widthSortedList.isEmpty())){
+
+                if(!lengthFlag){
+                    actualRect = lengthSortedList.getFirst();
+                    try{
+                        flag = newBox.acquire(actualRect);
+                    } catch (CloneNotSupportedException clex){
+                        clex.printStackTrace();
+                    }
+                    if(flag){
+                        lengthSortedList.removeFirst();
+                        widthSortedList.remove(actualRect);
+                    } else{
+                        lengthFlag = true;
+                    }
+                } else{
+                    actualRect = widthSortedList.getFirst();
+                    try{
+                        flag = newBox.acquire(actualRect);
+                    } catch (CloneNotSupportedException clex){
+                        clex.printStackTrace();
+                    }
+                    if(flag){
+                        widthSortedList.removeFirst();
+                        lengthSortedList.remove(actualRect);
+                    } else{
+                        this.instance.getBoxes().add(newBox);
+                        break;
+                    }
+                }
+            }
+            if (lengthSortedList.isEmpty()){
+                if(widthSortedList.isEmpty()) {
+                    break;
+                }
+            }
+        }
 
         /*
-        Preparation (Can be moved to constructor)
-
-        Create two Lists. One for length ordering of rectangles - Another for width ordering of rectangles
-        List1 = Sort all rectangles by length ascending
-        List2 = Sort all rectangles by width ascending
-
         START Algorithm
             Create BOX
                 WHILE(TRUE):
@@ -48,22 +95,27 @@ public class GreedyNumberOne {
 
     }
 
-    public Grid getInstance() {
-        return instance;
-    }
-
 
     public static void main(String[] args){
 
-        Grid grid = new Grid();
+        Grid grid = new Grid(123);
 
-        grid.init(1000, 102, 1, 1000,
+        grid.init(1000, 100, 1, 1000,
                 1, 1000);
 
         GreedyNumberOne greed = new GreedyNumberOne(grid);
+        greed.solve();
+        greed.instance.tidyUpSingleThread();
 
+
+        greed.instance.writeDataToFiles();
+
+
+        ScriptPython.execVisualization();
 
     }
 }
+
+
 
 

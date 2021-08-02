@@ -1,4 +1,4 @@
-import env.Rectangle;
+package env;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

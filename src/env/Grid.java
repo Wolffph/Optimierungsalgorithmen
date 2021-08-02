@@ -196,4 +196,14 @@ public class Grid {
             t.start();
         }
     }
+
+    public void writeDataToFiles(){
+        WriteToFile writer = new WriteToFile(objects);
+        writer.write("/Users/pw-home/IdeaProjects/Optimierungsalgorithmen/data.csv");
+
+        // Write bounding box data to a file
+        ArrayList<Rectangle> boxList = new ArrayList<>(this.boxes);
+        WriteToFile writer2 = new WriteToFile(boxList);
+        writer2.write("/Users/pw-home/IdeaProjects/Optimierungsalgorithmen/boxData.csv");
+    }
 }

@@ -38,13 +38,11 @@ public class Main {
         System.out.println("##################################################");
         System.out.println("Proceed with writing files.");
         startTime = System.currentTimeMillis();
-        WriteToFile writer = new WriteToFile(grid.getObjects());
-        writer.write("data.csv");
 
-        // Write bounding box data to a file
-        ArrayList<Rectangle> boxList = new ArrayList<>(grid.getBoxes());
-        WriteToFile writer2 = new WriteToFile(boxList);
-        writer2.write("boxData.csv");
+
+        grid.writeDataToFiles();
+
+
         endTime = System.currentTimeMillis();
         System.out.println("File writing: DONE.");
         System.out.println("The writing took " + (endTime - startTime) + " milliseconds.");
