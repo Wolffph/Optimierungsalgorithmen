@@ -40,7 +40,7 @@ public class Grid {
         boxes = new ArrayList<>();
         this.L = L;
 
-        for(int i = 0; i <= quantity; i++){
+        for(int i = 0; i < quantity; i++){
             length = (int) Math.floor(rnd.nextDouble()*(upperBoundLength-lowerBoundLength+1)+lowerBoundLength);
             width = (int) Math.floor(rnd.nextDouble()*(upperBoundWidth-lowerBoundWidth+1)+lowerBoundWidth);
             this.objects.add(new Rectangle(L, length, width, rnd));
@@ -48,10 +48,11 @@ public class Grid {
 
         // placementAsGenerated(); todo: Check if this is even necessary.
 
-        generateFeasibleSolution();
+        // generateFeasibleSolution(); todo: remove it later
     }
 
-    private void generateFeasibleSolution() {
+    public void generateFeasibleSolution() {
+
         while(!objects.isEmpty()){
 
             boolean alreadyAdded = false;
@@ -59,7 +60,17 @@ public class Grid {
             objects.remove(0);
 
             if(boxes.isEmpty()){
-                boxes.add(new Box(L, new Coordinate(0,0)));
+
+                Box initialBox = new Box(L, new Coordinate(0,0));
+
+                try{
+                    initialBox.acquire(actualRect);
+                } catch (CloneNotSupportedException clex){
+                    clex.printStackTrace();
+                }
+
+                boxes.add(initialBox);
+
             } else {
                 for (Box ele : boxes) {
                     try{
@@ -70,7 +81,6 @@ public class Grid {
                     } catch (CloneNotSupportedException ie){
                         ie.printStackTrace();
                     }
-
                 }
                 if(!alreadyAdded) {
                     try{

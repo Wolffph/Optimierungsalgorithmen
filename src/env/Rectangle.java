@@ -6,7 +6,8 @@ public class Rectangle implements Cloneable, Comparable<Rectangle>{
 
     public Coordinate x1, x2;
     public Coordinate y1, y2;
-    private final int length, width;
+    private int length;
+    private int width;
     private boolean turned = false;
 
     public Rectangle(int L, int length, int width){
@@ -85,12 +86,18 @@ public class Rectangle implements Cloneable, Comparable<Rectangle>{
     public void turnRectangle(){
 
         if ( !turned ){
+            int tmp = this.length;
+            this.length = this.width;
+            this.width = tmp;
             this.x1 = x2;
             this.x2 = new Coordinate(x1.getX()+length, x1.getY());
             this.y1 = new Coordinate(x1.getX(), x1.getY()+width);
             this.y2 = new Coordinate(x2.getX(), y1.getY());
             turned = true;
         } else{
+            int tmp = this.length;
+            this.length = this.width;
+            this.width = tmp;
             this.x2 = x1;
             this.x1 = new Coordinate(x2.getX()-length, x2.getY());
             this.y1 = new Coordinate(x1.getX(), x1.getY()+width);

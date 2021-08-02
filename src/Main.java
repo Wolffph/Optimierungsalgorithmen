@@ -16,6 +16,8 @@ public class Main {
         grid.init(15000, 100, 1, 10000,
                 1, 10000);
 
+        grid.generateFeasibleSolution();
+
         long endTime = System.currentTimeMillis();
         System.out.println("The data preparation took " + (endTime - startTime) + " milliseconds.");
         System.out.println("There are " + grid.getObjects().size() + " rectangles and we got "
