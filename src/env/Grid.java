@@ -151,21 +151,28 @@ public class Grid {
         return false;
     }
 
-    public void tidyUpSingleThread(){
-        int levels = (int) Math.floor(Math.sqrt(boxes.size()));
-        int counter = (int) Math.floor(boxes.size()/levels);
-        int elementNumber = 0;
+    public void tidyUpSingleThread() {
 
-        for(int i = 1; i <= levels+1; i++){
-            for(int j = 1; j<= counter; j++){
-                if(elementNumber > boxes.size() - 1){
-                    break;
-                } else{
-                    boxes.get(elementNumber).move(new Coordinate(-L + j*L, -L + i*L));
-                    elementNumber++;
+        try{
+            int levels = (int) Math.floor(Math.sqrt(boxes.size()));
+            int counter = (int) Math.floor(boxes.size()/levels);
+            int elementNumber = 0;
+
+            for(int i = 1; i <= levels+1; i++){
+                for(int j = 1; j<= counter; j++){
+                    if(elementNumber > boxes.size() - 1){
+                        break;
+                    } else{
+                        boxes.get(elementNumber).move(new Coordinate(-L + j*L, -L + i*L));
+                        elementNumber++;
+                    }
                 }
             }
+        } catch (ArithmeticException ex){
+            ex.printStackTrace();
         }
+
+
     }
 
     public void tidyUpMultiThread() {
@@ -202,8 +209,28 @@ public class Grid {
         writer.write("/Users/pw-home/IdeaProjects/Optimierungsalgorithmen/data.csv");
 
         // Write bounding box data to a file
-        ArrayList<Rectangle> boxList = new ArrayList<>(this.boxes);
+        ArrayList<Rectangle> boxList = new ArrayList<>(boxes);
         WriteToFile writer2 = new WriteToFile(boxList);
         writer2.write("/Users/pw-home/IdeaProjects/Optimierungsalgorithmen/boxData.csv");
+    }
+
+
+    public void summary(){
+        int check = 0;
+        System.out.println("This grid contains: " + getBoxes().size() + " boxes.");
+        System.out.println("This grid contains: " + getObjects().size() + " rectangles.");
+        System.out.println("----------------------------------------------------");
+        if(getBoxes().size() > 0){
+            for(int i = 0; i < getBoxes().size(); i++){
+                System.out.println("Box " + (i+1) + " contains "
+                        + getBoxes().get(i).getContainer().size() + " rectangles.");
+                check = check + getBoxes().get(i).getContainer().size();
+            }
+        }
+        System.out.println("----------------------------------------------------");
+        if(!(getObjects().size() == check)){
+            System.out.println("ERROR: " + (getObjects().size() - check) + " rectangles have no position yet.");
+        }
+
     }
 }

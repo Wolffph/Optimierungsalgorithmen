@@ -10,6 +10,10 @@ public class Box extends Rectangle{
         return container;
     }
 
+    public int getContainerSize() {
+        return container.size();
+    }
+
     public ArrayList<Coordinate> getAnchorList() {
         return anchorList;
     }
@@ -64,6 +68,7 @@ public class Box extends Rectangle{
             for (Rectangle ele : container) {
                 /*
                 Determination of feasible docking points for other rectangles.
+                todo: These are at the moment all corners. => Need to delete some points afterwards.
                  */
 
                 if(!anchorList.contains(ele.x2)){
@@ -78,6 +83,7 @@ public class Box extends Rectangle{
                     anchorList.add(ele.y2);
                 }
             }
+
             for (Coordinate coord : anchorList) {
                 Rectangle backup = (Rectangle) rect.clone();
                 rect.move(coord);
@@ -89,8 +95,27 @@ public class Box extends Rectangle{
                 }
 
             }
+
+            // Try it again with turned object
+            for (Coordinate coord : anchorList) {
+                Rectangle backup = (Rectangle) rect.clone();
+                rect.turnRectangle();
+                rect.move(coord);
+                if(violatesAgainstPositionConstraint(rect)){
+                    rect = backup;
+                } else{
+                    container.add(rect);
+                    return true;
+                }
+
+            }
+
             return false; // If this happens the box has to be "full". => Open a new env.Box
         }
+    }
+
+    public void acquire2(Rectangle rect) throws CloneNotSupportedException {
+        // todo
     }
 
     private boolean violatesAgainstPositionConstraint(Rectangle rect){
